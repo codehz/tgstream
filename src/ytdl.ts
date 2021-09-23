@@ -5,8 +5,6 @@ import type {
 } from "gram-tgcalls/lib/types";
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
-import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
-ffmpeg.setFfmpegPath(ffmpegPath)
 
 // deno-fmt-ignore
 const VIDEOS = [
