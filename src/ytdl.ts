@@ -37,7 +37,7 @@ const cfg = config.COOKIES
   : {};
 
 export default async function get(id: string) {
-  const info = await ytdl.getBasicInfo(id, cfg);
+  const info = await ytdl.getInfo(id, cfg);
   const formats: Array<ytdl.videoFormat & { signatureCipher?: string }> =
     info.formats;
   let video: ytdl.videoFormat & { signatureCipher?: string };
@@ -64,7 +64,8 @@ export default async function get(id: string) {
   }
   const ret: AVInfo = {};
   if (video) {
-    const source = ffmpeg(video.url)
+    const download = ytdl.downloadFromInfo(info, { filter: (x) => x == video });
+    const source = ffmpeg(download)
       .size(`${video.width}x${video.height}`)
       .fps(video.fps)
       .format("rawvideo");
@@ -78,8 +79,9 @@ export default async function get(id: string) {
     };
   }
   if (audio) {
+    const download = ytdl.downloadFromInfo(info, { filter: (x) => x == audio });
     const sampleRate = +audio.audioSampleRate || 32500;
-    const source = ffmpeg(audio.url)
+    const source = ffmpeg(download)
       .audioCodec("pcm_s16le")
       .format("s16le")
       .audioFrequency(sampleRate)
