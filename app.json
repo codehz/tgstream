@@ -1,0 +1,36 @@
+{
+  "name": "Telegram Voice Chat Bot",
+  "description": "A simple telegram voice chat bot",
+  "repository": "https://github.com/codehz/tgstream",
+  "logo": "https://telegram.org/img/t_logo.svg?1",
+  "keywords": ["nodejs", "telegram", "bot", "video"],
+  "env": {
+    "API_ID": {
+      "description": "API_ID get it from my.telegram.org/apps",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "API_HASH get it from my.telegram.org/apps",
+      "required": true
+    },
+    "TELEGRAM_SESSION": {
+      "description": "Telethon Session String",
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    },
+    "web": {
+      "quantity": 0,
+      "size": "free"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
