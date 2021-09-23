@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.18",
+    "@types/node": "^16.9.6"
+  },
+  "scripts": {
+    "prepare": "tsc"
+  },
+  "module": "dist/main.js",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "got": "^11.8.2",
+    "gram-tgcalls": "git+https://github.com/codehz/gram-tgcalls.git",
+    "node-pre-gyp": "^0.17.0",
+    "telegram": "^1.9.3",
+    "typescript": "^4.4.3",
+    "ytdl-core": "^4.9.1"
+  }
+}
