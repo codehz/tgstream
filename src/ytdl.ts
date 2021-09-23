@@ -32,7 +32,7 @@ const cfg = config.COOKIES
   ? {
     requestOptions: {
       headers: {
-        cookies: config.COOKIES,
+        cookie: config.COOKIES,
       },
     },
   }
