@@ -82,9 +82,9 @@ client.addEventHandler(async (e: NewMessageEvent) => {
         call.video.stream.update(
           video.readable,
           {
-            buffer: 5,
-            readybuffer: 20,
-            maxbuffer: 120,
+            buffer: 2,
+            readybuffer: 5,
+            maxbuffer: 20,
             ...video.options,
           },
         );
