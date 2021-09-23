@@ -38,8 +38,8 @@ client.addEventHandler(async (e: NewMessageEvent) => {
             call.audio.stream.resume();
           }
           if (video) {
-            call.audio.unmute();
-            call.audio.stream.resume();
+            call.video.unmute();
+            call.video.stream.resume();
           }
         }
       },
@@ -51,8 +51,8 @@ client.addEventHandler(async (e: NewMessageEvent) => {
           call.audio.stream.pause();
         }
         if (video) {
-          call.audio.mute();
-          call.audio.stream.pause();
+          call.video.mute();
+          call.video.stream.pause();
         }
       },
       onFinish() {
