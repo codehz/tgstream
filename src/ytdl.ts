@@ -6,7 +6,7 @@ import type {
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
-ffmpeg.setFfmpegPath(ffmpegPath)
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 // deno-fmt-ignore
 const VIDEOS = [
@@ -35,6 +35,7 @@ export default async function get(id: string) {
   let vidx = VIDEOS.length;
   let aidx = AUDIOS.length;
   for (const fmt of formats) {
+    if (!fmt.url) continue;
     const vid = VIDEOS.indexOf(fmt.itag);
     if (vid != -1 && vid < vidx) {
       vidx = vid;
