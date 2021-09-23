@@ -11,6 +11,7 @@
   "module": "dist/main.js",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
     "fluent-ffmpeg": "^2.1.2",
     "got": "^11.8.2",
     "gram-tgcalls": "git+https://github.com/codehz/gram-tgcalls.git",
