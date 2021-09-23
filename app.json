@@ -13,7 +13,7 @@
       "description": "API_HASH get it from my.telegram.org/apps",
       "required": true
     },
-    "SESSION_STRING": {
+    "TELEGRAM_SESSION": {
       "description": "Telethon Session String",
       "required": true
     }
