@@ -40,13 +40,19 @@ const cfg = config.COOKIES
 
 export default async function get(id: string) {
   const info = await ytdl.getBasicInfo(id, cfg);
-  const formats = info.formats;
-  let video: ytdl.videoFormat;
-  let audio: ytdl.videoFormat;
+  const formats: Array<ytdl.videoFormat & { signatureCipher?: string }> =
+    info.formats;
+  let video: ytdl.videoFormat & { signatureCipher?: string };
+  let audio: ytdl.videoFormat & { signatureCipher?: string };
   let vidx = VIDEOS.length;
   let aidx = AUDIOS.length;
   for (const fmt of formats) {
-    if (!fmt.url) continue;
+    if (!fmt.url) {
+      if (!fmt.signatureCipher) continue;
+      const search = new URLSearchParams(fmt.signatureCipher);
+      fmt.url = search.get("url");
+      if (!fmt.url) continue;
+    }
     const vid = VIDEOS.indexOf(fmt.itag);
     if (vid != -1 && vid < vidx) {
       vidx = vid;
