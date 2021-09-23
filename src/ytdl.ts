@@ -46,10 +46,12 @@ export default async function get(id: string) {
       audio = fmt;
     }
   }
-  console.log(video, audio);
   const ret: AVInfo = {};
   if (video) {
-    const source = ffmpeg(video.url).format("rawvideo");
+    const source = ffmpeg(video.url)
+      .size(`${video.width}x${video.height}`)
+      .fps(video.fps)
+      .format("rawvideo");
     ret.video = {
       readable: source.pipe() as PassThrough,
       options: {
@@ -60,15 +62,17 @@ export default async function get(id: string) {
     };
   }
   if (audio) {
+    const sampleRate = +audio.audioSampleRate || 32500;
     const source = ffmpeg(audio.url)
+      .audioCodec("pcm_s16le")
       .format("s16le")
-      .audioFrequency(32500)
+      .audioFrequency(sampleRate)
       .audioChannels(1);
     ret.audio = {
       readable: source.pipe() as PassThrough,
       options: {
         bitsPerSample: 16,
-        sampleRate: 32500,
+        sampleRate,
         channelCount: 1,
       },
     };

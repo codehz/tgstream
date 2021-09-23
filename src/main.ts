@@ -1,6 +1,6 @@
 import { NewMessage, NewMessageEvent } from "telegram/events/index.js";
 import ytdl from "./ytdl.js";
-import calls from "./calls.js";
+import calls, { clearCalls } from "./calls.js";
 import client from "./client.js";
 
 const ytb =
@@ -18,7 +18,6 @@ client.addEventHandler(async (e: NewMessageEvent) => {
     const id = ytbm[1];
     const { audio, video } = await ytdl(id);
     const maxCount = (audio ? 1 : 0) + (video ? 1 : 0);
-    console.log(maxCount);
     let expires = false;
     let readyCount = 0;
     const base = {
@@ -94,6 +93,7 @@ client.addEventHandler(
 
 process.on("SIGINT", async () => {
   console.log("shutdowning");
+  await clearCalls();
   await client.disconnect();
   console.log("disconnected");
   process.exit(0);
