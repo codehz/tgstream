@@ -70,13 +70,23 @@ client.addEventHandler(async (e: NewMessageEvent) => {
       if (audio) {
         call.audio.stream.update(
           audio.readable,
-          Object.assign({ buffer: 5, maxbuffer: 120 }, audio.options),
+          {
+            buffer: 5,
+            readybuffer: 20,
+            maxbuffer: 120,
+            ...audio.options,
+          },
         );
       }
       if (video) {
         call.video.stream.update(
           video.readable,
-          Object.assign({ buffer: 5, maxbuffer: 120 }, video.options),
+          {
+            buffer: 5,
+            readybuffer: 20,
+            maxbuffer: 120,
+            ...video.options,
+          },
         );
       }
     }
