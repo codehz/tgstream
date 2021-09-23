@@ -71,9 +71,9 @@ client.addEventHandler(async (e: NewMessageEvent) => {
         call.audio.stream.update(
           audio.readable,
           {
-            buffer: 5,
-            readybuffer: 20,
-            maxbuffer: 120,
+            buffer: 2,
+            readybuffer: 4,
+            maxbuffer: 20,
             ...audio.options,
           },
         );
@@ -83,7 +83,7 @@ client.addEventHandler(async (e: NewMessageEvent) => {
           video.readable,
           {
             buffer: 2,
-            readybuffer: 5,
+            readybuffer: 4,
             maxbuffer: 20,
             ...video.options,
           },

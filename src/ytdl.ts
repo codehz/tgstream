@@ -37,7 +37,7 @@ const cfg = config.COOKIES
   : {};
 
 export default async function get(id: string) {
-  const info = await ytdl.getInfo(id, cfg);
+  const info = await ytdl.getBasicInfo(id, cfg);
   const formats: Array<ytdl.videoFormat & { signatureCipher?: string }> =
     info.formats;
   let video: ytdl.videoFormat & { signatureCipher?: string };
@@ -45,12 +45,7 @@ export default async function get(id: string) {
   let vidx = VIDEOS.length;
   let aidx = AUDIOS.length;
   for (const fmt of formats) {
-    if (!fmt.url) {
-      if (!fmt.signatureCipher) continue;
-      const search = new URLSearchParams(fmt.signatureCipher);
-      fmt.url = search.get("url");
-      if (!fmt.url) continue;
-    }
+    if (!fmt.url) continue;
     const vid = VIDEOS.indexOf(fmt.itag);
     if (vid != -1 && vid < vidx) {
       vidx = vid;
@@ -64,8 +59,7 @@ export default async function get(id: string) {
   }
   const ret: AVInfo = {};
   if (video) {
-    const download = ytdl.downloadFromInfo(info, { filter: (x) => x == video });
-    const source = ffmpeg(download)
+    const source = ffmpeg(video.url)
       .size(`${video.width}x${video.height}`)
       .fps(video.fps)
       .format("rawvideo");
@@ -79,9 +73,8 @@ export default async function get(id: string) {
     };
   }
   if (audio) {
-    const download = ytdl.downloadFromInfo(info, { filter: (x) => x == audio });
     const sampleRate = +audio.audioSampleRate || 32500;
-    const source = ffmpeg(download)
+    const source = ffmpeg(audio.url)
       .audioCodec("pcm_s16le")
       .format("s16le")
       .audioFrequency(sampleRate)
