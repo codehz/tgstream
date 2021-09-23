@@ -6,6 +6,7 @@ import type {
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
+import config from "./config.js";
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 // deno-fmt-ignore
@@ -27,8 +28,18 @@ interface AVInfo {
   video?: MediaInfo<StreamVideoOptions>;
 }
 
+const cfg = config.COOKIES
+  ? {
+    requestOptions: {
+      headers: {
+        cookies: config.COOKIES,
+      },
+    },
+  }
+  : {};
+
 export default async function get(id: string) {
-  const info = await ytdl.getBasicInfo(id);
+  const info = await ytdl.getBasicInfo(id, cfg);
   const formats = info.formats;
   let video: ytdl.videoFormat;
   let audio: ytdl.videoFormat;
