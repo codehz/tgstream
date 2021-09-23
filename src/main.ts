@@ -103,3 +103,7 @@ process.on("SIGINT", async () => {
   console.log("disconnected");
   process.exit(0);
 });
+
+process.on("uncaughtException", function (err) {
+  console.log(err);
+});
