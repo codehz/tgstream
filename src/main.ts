@@ -19,7 +19,7 @@ client.addEventHandler(async (e: NewMessageEvent) => {
       const id = ytbm[1];
       const { audio, video } = await ytdl(id);
       const maxCount = (audio ? 1 : 0) + (video ? 1 : 0);
-      if (maxCount) throw new Error("no video or audio found");
+      if (maxCount == 0) throw new Error("no video or audio found");
       let expires = false;
       let readyCount = 0;
       const base = {
