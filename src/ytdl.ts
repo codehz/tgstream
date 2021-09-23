@@ -1,12 +1,12 @@
 import { PassThrough, Readable } from "stream";
-import got from "got/dist/source/index.js";
 import type {
   StreamAudioOptions,
   StreamVideoOptions,
 } from "gram-tgcalls/lib/types";
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
-import { GramTGCalls } from "gram-tgcalls";
+import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
+ffmpeg.setFfmpegPath(ffmpegPath)
 
 // deno-fmt-ignore
 const VIDEOS = [

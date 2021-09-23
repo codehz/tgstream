@@ -10,10 +10,9 @@
   },
   "module": "dist/main.js",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "dotenv": "^10.0.0",
-    "ffmpeg-static": "^4.4.0",
     "fluent-ffmpeg": "^2.1.2",
-    "got": "^11.8.2",
     "gram-tgcalls": "git+https://github.com/codehz/gram-tgcalls.git",
     "node-pre-gyp": "^0.17.0",
     "telegram": "^1.9.3",
